@@ -4,7 +4,6 @@ go 1.18
 
 require (
 	github.com/lib/pq v1.10.6
-	github.com/mazen160/go-random v0.0.0-20210308102632-d2b501c85c03
 	github.com/stretchr/testify v1.8.0
 )
 

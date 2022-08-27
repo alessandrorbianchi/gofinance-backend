@@ -2,19 +2,23 @@ package util
 
 import (
 	"fmt"
+	"math/rand"
 	"strings"
-
-	"github.com/mazen160/go-random"
+	"time"
 )
 
 const alphabet = "abcdefghijklmnopqrstuvwxyz"
 
+func init() {
+	rand.Seed(time.Now().UnixNano())
+}
+
 func RandomString(number int) string {
 	var sb strings.Builder
 	k := len(alphabet)
+
 	for i := 0; i < number; i++ {
-		n, _ := random.GetInt(k)
-		c := alphabet[n]
+		c := alphabet[rand.Intn(k)]
 		sb.WriteByte(c)
 	}
 
