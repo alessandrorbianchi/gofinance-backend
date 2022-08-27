@@ -1,38 +1,33 @@
-create table if not exists users (
-    id serial primary key not null,
-    st_username varchar not null,
-    st_password varchar not null,
-    st_email varchar unique not null,
-    dt_created_at timestamptz not null default now()
+CREATE TABLE "users" (
+  "id" serial PRIMARY KEY NOT NULL,
+  "username" varchar NOT NULL,
+  "password" varchar NOT NULL,
+  "email" varchar UNIQUE NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-create table if not exists categories (
-    id serial primary key not null,
-    co_user_id int not null,
-    st_title varchar not null,
-    st_type varchar not null,
-    st_description varchar not null,
-    dt_created_at timestamptz not null default now()
+CREATE TABLE "categories" (
+  "id" serial PRIMARY KEY NOT NULL,
+  "user_id" int NOT NULL,
+  "title" varchar NOT NULL,
+  "type" varchar NOT NULL,
+  "description" varchar NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-alter table categories add foreign key (co_user_id) references users (id);
+ALTER TABLE "categories" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
-create table if not exists accounts (
-    id serial primary key not null,
-    co_user_id int not null,
-    co_category_id int not null,
-    st_title varchar not null,
-    st_type varchar not null,
-    st_description varchar not null,
-    vl_value integer NOT NULL,
-    dt_date date NOT NULL,
-    dt_created_at timestamptz not null default now()
+CREATE TABLE "accounts" (
+  "id" serial PRIMARY KEY NOT NULL,
+  "user_id" int NOT NULL,
+  "category_id" int NOT NULL,
+  "title" varchar NOT NULL,
+  "type" varchar NOT NULL,
+  "description" varchar NOT NULL,
+  "value" integer NOT NULL,
+  "date" date NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-alter table accounts add foreign key (co_user_id) references users (id);
-alter table accounts add foreign key (co_category_id) references categories (id);
-
-
-
-
-
+ALTER TABLE "accounts" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+ALTER TABLE "accounts" ADD FOREIGN KEY ("category_id") REFERENCES "categories" ("id");

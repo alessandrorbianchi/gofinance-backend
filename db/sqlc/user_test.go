@@ -10,19 +10,19 @@ import (
 
 func createRandomUser(t *testing.T) User {
 	arg := CreateUserParams{
-		StUsername: util.RandomString(6),
-		StPassword: util.RandomString(12),
-		StEmail:    util.RandomEmail(8),
+		Username: util.RandomString(6),
+		Password: util.RandomString(12),
+		Email:    util.RandomEmail(8),
 	}
 
 	user, err := testQueries.CreateUser(context.Background(), arg)
 	require.NoError(t, err)
 	require.NotEmpty(t, user)
 
-	require.Equal(t, arg.StUsername, user.StUsername)
-	require.Equal(t, arg.StPassword, user.StPassword)
-	require.Equal(t, arg.StEmail, user.StEmail)
-	require.NotEmpty(t, user.DtCreatedAt)
+	require.Equal(t, arg.Username, user.Username)
+	require.Equal(t, arg.Password, user.Password)
+	require.Equal(t, arg.Email, user.Email)
+	require.NotEmpty(t, user.CreatedAt)
 
 	return user
 }
@@ -33,14 +33,14 @@ func TestCreateUser(t *testing.T) {
 
 func TestGetUser(t *testing.T) {
 	user1 := createRandomUser(t)
-	user2, err := testQueries.GetUser(context.Background(), user1.StUsername)
+	user2, err := testQueries.GetUser(context.Background(), user1.Username)
 	require.NoError(t, err)
 	require.NotEmpty(t, user2)
 
-	require.Equal(t, user1.StUsername, user2.StUsername)
-	require.Equal(t, user1.StPassword, user2.StPassword)
-	require.Equal(t, user1.StEmail, user2.StEmail)
-	require.NotEmpty(t, user2.DtCreatedAt)
+	require.Equal(t, user1.Username, user2.Username)
+	require.Equal(t, user1.Password, user2.Password)
+	require.Equal(t, user1.Email, user2.Email)
+	require.NotEmpty(t, user2.CreatedAt)
 }
 
 func TestGetUserById(t *testing.T) {
@@ -49,8 +49,8 @@ func TestGetUserById(t *testing.T) {
 	require.NoError(t, err)
 	require.NotEmpty(t, user2)
 
-	require.Equal(t, user1.StUsername, user2.StUsername)
-	require.Equal(t, user1.StPassword, user2.StPassword)
-	require.Equal(t, user1.StEmail, user2.StEmail)
-	require.NotEmpty(t, user2.DtCreatedAt)
+	require.Equal(t, user1.Username, user2.Username)
+	require.Equal(t, user1.Password, user2.Password)
+	require.Equal(t, user1.Email, user2.Email)
+	require.NotEmpty(t, user2.CreatedAt)
 }

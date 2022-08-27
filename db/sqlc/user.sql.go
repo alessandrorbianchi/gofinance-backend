@@ -11,53 +11,53 @@ import (
 
 const createUser = `-- name: CreateUser :one
 INSERT INTO users (
-  st_username,
-  st_password,
-  st_email
+  username,
+  password,
+  email
 ) VALUES (
   $1, $2, $3
-) RETURNING id, st_username, st_password, st_email, dt_created_at
+) RETURNING id, username, password, email, created_at
 `
 
 type CreateUserParams struct {
-	StUsername string `json:"st_username"`
-	StPassword string `json:"st_password"`
-	StEmail    string `json:"st_email"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Email    string `json:"email"`
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
-	row := q.db.QueryRowContext(ctx, createUser, arg.StUsername, arg.StPassword, arg.StEmail)
+	row := q.db.QueryRowContext(ctx, createUser, arg.Username, arg.Password, arg.Email)
 	var i User
 	err := row.Scan(
 		&i.ID,
-		&i.StUsername,
-		&i.StPassword,
-		&i.StEmail,
-		&i.DtCreatedAt,
+		&i.Username,
+		&i.Password,
+		&i.Email,
+		&i.CreatedAt,
 	)
 	return i, err
 }
 
 const getUser = `-- name: GetUser :one
-SELECT id, st_username, st_password, st_email, dt_created_at FROM users
-WHERE st_username = $1 LIMIT 1
+SELECT id, username, password, email, created_at FROM users
+WHERE username = $1 LIMIT 1
 `
 
-func (q *Queries) GetUser(ctx context.Context, stUsername string) (User, error) {
-	row := q.db.QueryRowContext(ctx, getUser, stUsername)
+func (q *Queries) GetUser(ctx context.Context, username string) (User, error) {
+	row := q.db.QueryRowContext(ctx, getUser, username)
 	var i User
 	err := row.Scan(
 		&i.ID,
-		&i.StUsername,
-		&i.StPassword,
-		&i.StEmail,
-		&i.DtCreatedAt,
+		&i.Username,
+		&i.Password,
+		&i.Email,
+		&i.CreatedAt,
 	)
 	return i, err
 }
 
 const getUserById = `-- name: GetUserById :one
-SELECT id, st_username, st_password, st_email, dt_created_at FROM users
+SELECT id, username, password, email, created_at FROM users
 WHERE id = $1 LIMIT 1
 `
 
@@ -66,10 +66,10 @@ func (q *Queries) GetUserById(ctx context.Context, id int32) (User, error) {
 	var i User
 	err := row.Scan(
 		&i.ID,
-		&i.StUsername,
-		&i.StPassword,
-		&i.StEmail,
-		&i.DtCreatedAt,
+		&i.Username,
+		&i.Password,
+		&i.Email,
+		&i.CreatedAt,
 	)
 	return i, err
 }

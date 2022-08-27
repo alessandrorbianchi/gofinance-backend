@@ -9,30 +9,30 @@ import (
 )
 
 type Account struct {
-	ID            int32     `json:"id"`
-	CoUserID      int32     `json:"co_user_id"`
-	CoCategoryID  int32     `json:"co_category_id"`
-	StTitle       string    `json:"st_title"`
-	StType        string    `json:"st_type"`
-	StDescription string    `json:"st_description"`
-	VlValue       int32     `json:"vl_value"`
-	DtDate        time.Time `json:"dt_date"`
-	DtCreatedAt   time.Time `json:"dt_created_at"`
+	ID          int32     `json:"id"`
+	UserID      int32     `json:"user_id"`
+	CategoryID  int32     `json:"category_id"`
+	Title       string    `json:"title"`
+	Type        string    `json:"type"`
+	Description string    `json:"description"`
+	Value       int32     `json:"value"`
+	Date        time.Time `json:"date"`
+	CreatedAt   time.Time `json:"created_at"`
 }
 
 type Category struct {
-	ID            int32     `json:"id"`
-	CoUserID      int32     `json:"co_user_id"`
-	StTitle       string    `json:"st_title"`
-	StType        string    `json:"st_type"`
-	StDescription string    `json:"st_description"`
-	DtCreatedAt   time.Time `json:"dt_created_at"`
+	ID          int32     `json:"id"`
+	UserID      int32     `json:"user_id"`
+	Title       string    `json:"title"`
+	Type        string    `json:"type"`
+	Description string    `json:"description"`
+	CreatedAt   time.Time `json:"created_at"`
 }
 
 type User struct {
-	ID          int32     `json:"id"`
-	StUsername  string    `json:"st_username"`
-	StPassword  string    `json:"st_password"`
-	StEmail     string    `json:"st_email"`
-	DtCreatedAt time.Time `json:"dt_created_at"`
+	ID        int32     `json:"id"`
+	Username  string    `json:"username"`
+	Password  string    `json:"password"`
+	Email     string    `json:"email"`
+	CreatedAt time.Time `json:"created_at"`
 }
