@@ -28,6 +28,7 @@ Repository for code a finance with Golang
 
 # sqlc - Docker
    - docker pull kjconroy/sqlc
+   - install - snap install sqlc (Linux)
 
 Run sqlc using docker run:
    - docker run --rm -v $(pwd):/src -w /src kjconroy/sqlc generate
