@@ -26,7 +26,6 @@ func main() {
 
 	err = server.Start(serverAddress)
 	if err != nil {
-		log.Fatal("cannot star api: ", err)
+		log.Fatal("cannot start api: ", err)
 	}
-
 }
