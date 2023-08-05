@@ -15,21 +15,8 @@ WHERE id = $1 LIMIT 1;
 -- name: GetCategories :many
 SELECT * FROM categories 
 where user_id = $1 and type = $2 
-and title like $3 and description like $4;
-
--- name: GetCategoriesByUserIdAndType :many
-SELECT * FROM categories 
-where user_id = $1 and type = $2;
-
--- name: GetCategoriesByUserIdAndTypeAndTitle :many
-SELECT * FROM categories 
-where user_id = $1 and type = $2
-and title like $3;
-
--- name: GetCategoriesByUserIdAndTypeAndDescription :many
-SELECT * FROM categories 
-where user_id = $1 and type = $2
-and description like $3;
+and lower(title) like CONCAT('%', lower(@title::text), '%') 
+and lower(description) like CONCAT('%', lower(@description::text), '%');
 
 -- name: UpdateCategories :one
 UPDATE categories 
