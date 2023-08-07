@@ -19,6 +19,7 @@ func (server *Server) createCategory(ctx *gin.Context) {
 	var req createCategoryRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	arg := db.CreateCategoryParams{
@@ -31,6 +32,7 @@ func (server *Server) createCategory(ctx *gin.Context) {
 	category, err := server.store.CreateCategory(ctx, arg)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
 	}
 
 	ctx.JSON(http.StatusOK, category)
@@ -44,6 +46,7 @@ func (server *Server) getCategory(ctx *gin.Context) {
 	var req getCategoryRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	category, err := server.store.GetCategory(ctx, req.ID)
@@ -67,6 +70,7 @@ func (server *Server) deleteCategory(ctx *gin.Context) {
 	var req deleteCategoryRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	if err := server.store.DeleteCategories(ctx, req.ID); err != nil {
@@ -87,6 +91,7 @@ func (server *Server) updateCategory(ctx *gin.Context) {
 	var req updateCategoryRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	arg := db.UpdateCategoriesParams{
