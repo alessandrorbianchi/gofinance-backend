@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	db "github.com/alessandrorbianchi/gofinance-backend/db/sqlc"
+	"github.com/alessandrorbianchi/gofinance-backend/util"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,6 +17,10 @@ type createCategoryRequest struct {
 }
 
 func (server *Server) createCategory(ctx *gin.Context) {
+	if errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx); errOnValiteToken != nil {
+		return
+	}
+
 	var req createCategoryRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
@@ -43,6 +48,10 @@ type getCategoryRequest struct {
 }
 
 func (server *Server) getCategory(ctx *gin.Context) {
+	if errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx); errOnValiteToken != nil {
+		return
+	}
+
 	var req getCategoryRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
@@ -67,6 +76,10 @@ type deleteCategoryRequest struct {
 }
 
 func (server *Server) deleteCategory(ctx *gin.Context) {
+	if errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx); errOnValiteToken != nil {
+		return
+	}
+
 	var req deleteCategoryRequest
 	if err := ctx.ShouldBindUri(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
@@ -88,6 +101,10 @@ type updateCategoryRequest struct {
 }
 
 func (server *Server) updateCategory(ctx *gin.Context) {
+	if errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx); errOnValiteToken != nil {
+		return
+	}
+
 	var req updateCategoryRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
@@ -116,6 +133,10 @@ type getCategoriesRequest struct {
 }
 
 func (server *Server) getCategories(ctx *gin.Context) {
+	if errOnValiteToken := util.GetTokenInHeaderAndVerify(ctx); errOnValiteToken != nil {
+		return
+	}
+
 	var req getCategoriesRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
