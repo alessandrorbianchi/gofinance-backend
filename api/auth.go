@@ -22,10 +22,14 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
+type loginResponse struct {
+	UserID int32  `json:"user_id"`
+	Token  string `json:"token"`
+}
+
 func (server *Server) login(ctx *gin.Context) {
 	var req loginRequest
-	err := ctx.ShouldBindJSON(&req)
-	if err != nil {
+	if err := ctx.ShouldBindJSON(&req); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 	}
 
@@ -66,5 +70,10 @@ func (server *Server) login(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, generatedTokenToString)
+	arg := &loginResponse{
+		UserID: user.ID,
+		Token:  generatedTokenToString,
+	}
+
+	ctx.JSON(http.StatusOK, arg)
 }
